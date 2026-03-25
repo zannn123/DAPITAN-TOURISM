@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map</title>
+    <title>Dapitan Interactive Map</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -21,14 +21,11 @@
 
     <section class="hero">
         <img src="assets/back.png" alt="Background" class="layer background animate-bg" id="back">
-        
         <div class="title-group animate-title" id="text">
             <h2 class="subheading">YOUR COMPASS</h2>
             <h1 class="text-main">MAP</h1>
         </div>
-
         <img src="assets/front.png" alt="Foreground" class="layer foreground animate-bg" id="front">
-        
         <div class="title-group-hollow animate-title" id="text-hollow">
             <h2 class="subheading">YOUR COMPASS</h2>
             <h1 class="text-hollow-main">MAP</h1>
@@ -36,137 +33,75 @@
     </section>
 
     <section class="content">
-        <div class="content-inner">
-            <div class="map-container">
-                <div class="section-header">
-                    <h2 class="section-title">Interactive Dapitan Map</h2>
-                    <p class="section-subtitle">Discover landmarks with a single touch</p>
+        <div class="map-container">
+            <div class="section-header" style="text-align: center; margin-bottom: 30px;">
+                <h2 class="section-title">Interactive Dapitan Map</h2>
+                <div class="map-controls" style="margin-top: 20px; display: flex; gap: 15px; justify-content: center;">
+                    <button id="btn-svg" class="btn active-toggle">Artistic Canvas</button>
+                    <button id="btn-google" class="btn glass">Live Explorer</button>
                 </div>
-                
-                <div class="interactive-map-wrapper">
-                    <div class="map-container-svg glass">
-                        <!-- Custom Interactive SVG Map -->
+            </div>
+
+            <div class="interactive-map-wrapper">
+                <aside class="map-sidebar glass" id="mapSidebar">
+                    <div class="sidebar-header">
+                        <h3 class="sidebar-title">Destinations</h3>
+                        <div class="filter-group">
+                            <button class="filter-btn active" data-category="all">All</button>
+                            <button class="filter-btn" data-category="historic">History</button>
+                            <button class="filter-btn" data-category="nature">Nature</button>
+                        </div>
+                    </div>
+                    <ul id="locationList" class="location-list">
+                        </ul>
+                </aside>
+
+                <div class="map-viewport">
+                    <div class="map-container-svg glass" id="svg-view-container">
                         <svg viewBox="0 0 1200 800" class="dapitan-map" id="dapitanMap">
-                            <!-- Background water/land -->
                             <defs>
                                 <radialGradient id="landGradient" cx="50%" cy="50%">
-                                    <stop offset="0%" stop-color="#e8f5e8"/>
-                                    <stop offset="50%" stop-color="#d4ead4"/>
-                                    <stop offset="100%" stop-color="#b8d0b8"/>
+                                    <stop offset="0%" stop-color="#e8f5e8"/><stop offset="100%" stop-color="#b8d0b8"/>
                                 </radialGradient>
                                 <radialGradient id="waterGradient" cx="50%" cy="50%">
-                                    <stop offset="0%" stop-color="#a8d8f0"/>
-                                    <stop offset="50%" stop-color="#7bb8e0"/>
-                                    <stop offset="100%" stop-color="#5a98c0"/>
+                                    <stop offset="0%" stop-color="#a8d8f0"/><stop offset="100%" stop-color="#5a98c0"/>
                                 </radialGradient>
-                                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                    <feMerge> 
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
                             </defs>
 
-                            <!-- Main landmass -->
                             <path class="map-land" d="M100,200 Q150,100 300,150 T500,200 Q600,250 700,220 T900,250 Q1050,280 1100,300 T1150,350 L1150,700 L50,700 Z" fill="url(#landGradient)"/>
+                            <ellipse class="map-water" cx="400" cy="450" rx="200" ry="120" fill="url(#waterGradient)" opacity="0.6"/>
 
-                            <!-- Water areas -->
-                            <path class="map-water" d="M50,200 Q0,150 0,300 T0,700 L50,700 L50,200 Z" fill="url(#waterGradient)"/>
-                            <ellipse class="map-water" cx="400" cy="450" rx="200" ry="120" fill="url(#waterGradient)" opacity="0.9"/>
-
-                            <!-- Rizal Shrine - Main landmark -->
                             <g class="map-marker" data-location="rizal-shrine">
-                                <circle cx="250" cy="280" r="18" fill="#ff6b6b" stroke="rgba(255,255,255,0.9)" stroke-width="3">
-                                    <animate attributeName="r" values="18;22;18" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                                <path d="M250 260 L250 200 L270 220 Z" fill="#ff6b6b" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-                                <circle cx="250" cy="280" r="12" fill="white" opacity="0.9"/>
-                                <text x="250" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff6b6b">R</text>
+                                <circle cx="250" cy="280" r="18" fill="#ff6b6b" stroke="white" stroke-width="3" />
+                                <text x="250" y="285" text-anchor="middle" font-weight="bold" fill="white">R</text>
                             </g>
 
-                            <!-- Dakak Beach -->
                             <g class="map-marker" data-location="dakak-beach">
-                                <circle cx="850" cy="320" r="16" fill="#4ecdc4" stroke="rgba(255,255,255,0.9)" stroke-width="3">
-                                    <animate attributeName="r" values="16;20;16" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
-                                </circle>
-                                <path d="M850 300 L850 240 L870 260 Z" fill="#4ecdc4" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-                                <circle cx="850" cy="320" r="10" fill="white" opacity="0.9"/>
-                                <text x="850" y="325" text-anchor="middle" font-size="11" font-weight="bold" fill="#4ecdc4">🏖️</text>
+                                <circle cx="850" cy="320" r="18" fill="#4ecdc4" stroke="white" stroke-width="3" />
+                                <text x="850" y="325" text-anchor="middle" font-weight="bold" fill="white">🏖️</text>
                             </g>
 
-                            <!-- Linaw Beach -->
-                            <g class="map-marker" data-location="linaw-beach">
-                                <circle cx="650" cy="520" r="15" fill="#a8e6cf" stroke="rgba(255,255,255,0.9)" stroke-width="3">
-                                    <animate attributeName="r" values="15;19;15" dur="2s" repeatCount="indefinite" begin="1s"/>
-                                </circle>
-                                <path d="M650 500 L650 440 L670 460 Z" fill="#a8e6cf" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-                                <circle cx="650" cy="520" r="9" fill="white" opacity="0.9"/>
-                                <text x="650" y="525" text-anchor="middle" font-size="10" font-weight="bold" fill="#4ecdc4">L</text>
-                            </g>
-
-                            <!-- Sumlog Falls -->
                             <g class="map-marker" data-location="sumlog-falls">
-                                <circle cx="450" cy="380" r="17" fill="#3498db" stroke="rgba(255,255,255,0.9)" stroke-width="3">
-                                    <animate attributeName="r" values="17;21;17" dur="2.2s" repeatCount="indefinite" begin="1.5s"/>
-                                </circle>
-                                <path d="M450 360 L450 300 L470 320 Z" fill="#3498db" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-                                <circle cx="450" cy="380" r="11" fill="white" opacity="0.9"/>
-                                <text x="450" y="385" text-anchor="middle" font-size="11" font-weight="bold" fill="#3498db">💧</text>
-                            </g>
-
-                            <!-- Roads/paths -->
-                            <path class="map-road" d="M200,300 Q350,320 450,340 T650,370 L750,380 L850,390" stroke="#ddd" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path class="map-road" d="M300,450 Q400,460 500,470 T700,480" stroke="#ddd" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-
-                            <!-- Decorative elements -->
-                            <g class="map-trees">
-                                <ellipse cx="150" cy="450" rx="25" ry="40" fill="#2d5016" opacity="0.8"/>
-                                <ellipse cx="950" cy="500" rx="20" ry="35" fill="#2d5016" opacity="0.8"/>
-                                <ellipse cx="550" cy="600" rx="22" ry="38" fill="#2d5016" opacity="0.8"/>
-                            </g>
-
-                            <!-- Legend overlay -->
-                            <g class="map-legend-svg">
-                                <rect x="20" y="20" width="300" height="60" rx="12" fill="rgba(255,255,255,0.95)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                                <circle cx="50" cy="45" r="8" fill="#ff6b6b"/>
-                                <text x="65" y="50" font-size="14" font-weight="500" fill="#333">Rizal Shrine</text>
-                                <circle cx="50" cy="75" r="8" fill="#4ecdc4"/>
-                                <text x="65" y="80" font-size="14" font-weight="500" fill="#333">Beaches</text>
+                                <circle cx="450" cy="380" r="18" fill="#3498db" stroke="white" stroke-width="3" />
+                                <text x="450" y="385" text-anchor="middle" font-weight="bold" fill="white">💧</text>
                             </g>
                         </svg>
 
-                        <!-- Interactive Tooltip -->
                         <div class="map-tooltip" id="mapTooltip">
                             <div class="tooltip-content">
-                                <h4 class="tooltip-title"></h4>
-                                <p class="tooltip-desc"></p>
-                                <div class="tooltip-action">
-                                    <a href="#" class="btn tooltip-btn">Explore</a>
                                 </div>
-                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="map-legend">
-                    <div class="legend-item">
-                        <span class="legend-dot historic"></span>
-                        <span>Historical Sites</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-dot nature"></span>
-                        <span>Nature & Beaches</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-dot adventure"></span>
-                        <span>Waterfalls</span>
+                    <div id="google-map-container" class="glass" style="display: none; height: 100%; border-radius: 32px; overflow: hidden;">
+                        <div id="googleMap" style="width: 100%; height: 100%;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
     <script src="js/script.js"></script>
     <script src="js/map-script.js"></script>
 </body>
