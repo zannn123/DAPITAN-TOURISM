@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dapitan Tourism</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar animate-nav">
+        <div class="nav-logo">
+            <img src="assets/logo.png" alt="Dapitan Logo" class="nav-logo-image">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="nav-item" id="navHome">Home</a></li>
+            <li><a href="#" class="nav-item" id="navExplore">Explore</a></li>
+            <li><a href="map.html" class="nav-item">Map</a></li>
+            <li><a href="#" class="nav-item" data-modal-link="true">Contacts</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <img src="assets/back.png" alt="Background" class="layer background animate-bg" id="back">
+
+        <div class="title-group animate-title" id="text">
+            <h2 class="subheading">THE LIVING CANVAS</h2>
+            <h1 class="text-main">DAPITAN</h1>
+        </div>
+
+        <img src="assets/front.png" alt="Foreground" class="layer foreground animate-bg" id="front">
+        
+        <!-- Hollow Text Layer identical to the solid text, but sits OVER the foreground -->
+        <div class="title-group-hollow animate-title" id="text-hollow">
+            <h2 class="subheading">THE LIVING CANVAS</h2>
+            <h1 class="text-hollow-main">DAPITAN</h1>
+        </div>
+    </section>
+
+    <!-- Scrollable Space -->
+    <section class="content">
+        <div class="content-inner">
+            <!-- Space for scrollabilityyyyyyyyyy -->
+        </div>
+    </section>
+
+    <section class="explore-view" id="exploreView" aria-hidden="true">
+        <button type="button" class="explore-close" id="exploreClose">Back To Home</button>
+        <canvas id="infinite-grid-menu-canvas" aria-label="Interactive Dapitan explore menu"></canvas>
+
+        <div class="explore-info-overlay">
+            <h2 class="face-title inactive" id="exploreFaceTitle"></h2>
+            <p class="face-description inactive" id="exploreFaceDescription"></p>
+        </div>
+
+        <button type="button" class="action-button inactive" id="exploreAction" aria-label="Open selected item">
+            <span class="action-button-icon">&#x2197;</span>
+        </button>
+    </section>
+
+    <!-- Coming Soon Modal -->
+    <div class="modal" id="comingSoonModal">
+        <div class="modal-content glass">
+            <h2>COMING SOON</h2>
+            <p>This view is currently under development!</p>
+            <button id="closeModal" class="btn">Close</button>
+        </div>
+    </div>
+
+    <script src="js/vendor/gl-matrix-min.js"></script>
+    <script src="js/infinite-menu.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
