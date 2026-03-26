@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts – Dapitan Tourism</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar animate-nav">
+        <div class="nav-logo">
+            <img src="assets/logo.png" alt="Dapitan Logo" class="nav-logo-image">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item">Home</a></li>
+            <li><a href="explore.html" class="nav-item">Explore</a></li>
+            <li><a href="map.html" class="nav-item">Map</a></li>
+            <li><a href="#" class="nav-item active">Contacts</a></li>
+        </ul>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <img src="assets/back.png" alt="Background" class="layer background animate-bg" id="back">
+
+        <div class="title-group animate-title" id="text">
+            <h2 class="subheading">GET IN TOUCH</h2>
+            <h1 class="text-main">CONTACTS</h1>
+        </div>
+
+        <img src="assets/front.png" alt="Foreground" class="layer foreground animate-bg" id="front">
+
+        <div class="title-group-hollow animate-title" id="text-hollow">
+            <h2 class="subheading">GET IN TOUCH</h2>
+            <h1 class="text-hollow-main">CONTACTS</h1>
+        </div>
+    </section>
+
+    <!-- ── CONTENT ── -->
+    <section class="content">
+        <div class="content-inner">
+
+            <div class="section-header">
+                <h2>Tourist Spot Directory</h2>
+                <p>Select a spot from the carousel to view its contact information</p>
+            </div>
+
+            <div class="contacts-layout">
+
+                <!-- LEFT: Carousel -->
+                <div class="carousel-side">
+                    <div class="carousel-track-wrapper">
+                        <div class="carousel-slides" id="carouselSlides">
+                            <!-- slides injected by JS -->
+                        </div>
+
+                        <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous">&#8592;</button>
+                        <button class="carousel-btn next" id="carouselNext" aria-label="Next">&#8594;</button>
+                    </div>
+
+                    <!-- Dots -->
+                    <div class="carousel-dots" id="carouselDots"></div>
+
+                    <!-- Thumbnails -->
+                    <div class="carousel-thumbs" id="carouselThumbs"></div>
+                </div>
+
+                <!-- RIGHT: Contact card -->
+                <div class="contact-side">
+                    <div class="contact-card" id="contactCard">
+                        <div class="contact-card-header">
+                            <div class="contact-card-tag" id="cardTag">Tourist Spot</div>
+                            <h3 class="contact-card-title" id="cardTitle">Loading…</h3>
+                        </div>
+                        <div class="contact-card-body" id="cardBody">
+                            <!-- injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer note -->
+            <p class="contacts-note">
+                Contact details are sourced from official channels and publicly available directories.<br>
+                For the most current information, please verify directly with each establishment.<br>
+                For general tourism inquiries: <strong>Dapitan City Tourism Office</strong> — (065) 213-6203 / (065) 213-6377
+            </p>
+
+        </div>
+    </section>
+
+    <!-- ── SCRIPTS ── -->
+    <script src="js/script.js"></script>
+    <script src="js/contact-script.js"></script>
+</body>
+</html>
