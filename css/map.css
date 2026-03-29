@@ -1,0 +1,228 @@
+/* ─── IMMERSIVE 360 GALLERY ─── */
+
+html {
+    scroll-behavior: smooth; /* Enable smooth transitions for internal anchor links */
+}
+
+.immersive-gallery {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background: #000;
+    /* Enable full-page scroll snapping */
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.immersive-wrapper {
+    width: 100%;
+}
+
+.immersive-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start; /* Snap each location precisely to the viewport */
+    overflow: hidden;
+}
+
+.immersive-map-frame {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #09130d;
+    overflow: hidden; /* Strict mask to crop out Google toolbars */
+}
+
+.immersive-map-frame iframe {
+    position: absolute;
+    /* Expert Masking: Crop native Google UI by overscaling */
+    top: -65px;
+    left: -10px;
+    width: calc(100% + 120px); 
+    height: calc(100% + 180px);
+    border: none;
+    user-select: none;
+}
+
+/* UI Overlay Layer (Non-interactive Text) */
+.immersive-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centered content only */
+    padding: 120px 40px 160px; /* Space for buttons at the bottom */
+    pointer-events: none; /* Allow map interaction through the text */
+    color: #fff;
+    text-align: center;
+}
+
+/* Hint at the top */
+.immersive-hint {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.75rem, 1vw, 0.95rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    margin-bottom: auto; /* Push to extreme top of overlay */
+}
+
+/* Center Content Group */
+.immersive-content-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.immersive-title {
+    font-family: 'Barabara', sans-serif;
+    font-size: clamp(2.2rem, 8vw, 6.5rem); 
+    line-height: 1.05;
+    margin: 0;
+    letter-spacing: 0.02em;
+    text-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    text-transform: uppercase;
+}
+
+.immersive-description {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 1.2vw, 1.15rem);
+    max-width: 800px;
+    line-height: 1.6;
+    margin: 0 auto;
+    opacity: 0.95;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+/* HIGH-PRIORITY TOUCH LAYER (Interactive Buttons) */
+.immersive-action {
+    position: absolute;
+    bottom: 80px;      /* Matches previous layout exactly */
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    z-index: 100;      /* Highest priority to win the touch layer on mobile */
+    pointer-events: auto; /* Explicitly capture clicks */
+}
+
+/* Ensure links are interactive */
+.immersive-action a {
+    pointer-events: auto;
+}
+
+/* Primary Button */
+.btn-glass {
+    display: inline-block;
+    padding: 18px 54px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #111;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 999px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Circular Scroll Button */
+.btn-round {
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    color: #111;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.btn-round svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+    transform: rotate(90deg); /* Pointing Down */
+    transition: transform 0.4s ease;
+}
+
+/* Invert direction for the return button */
+.btn-round.up svg {
+    transform: rotate(-90deg); /* Pointing Up */
+}
+
+.btn-glass:hover,
+.btn-round:hover {
+    background: rgba(255, 255, 255, 0.55);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+}
+
+/* Smooth transitions for the whole gallery */
+.immersive-section * {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Interactive navigation bar stays visible and matches home design */
+.navbar {
+    z-index: 1000;
+}
+
+/* Custom Scrollbar for a premium look */
+.immersive-gallery::-webkit-scrollbar {
+    width: 6px;
+}
+
+.immersive-gallery::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+}
+
+.immersive-gallery::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+    .immersive-overlay {
+        padding-top: 100px;
+        padding-bottom: 140px;
+    }
+    
+    .immersive-action {
+        bottom: 50px; /* Slight adjustment for better mobile ergonomics */
+    }
+
+    .btn-glass {
+        padding: 14px 40px;
+        font-size: 0.95rem;
+    }
+    
+    .btn-round {
+        width: 52px;
+        height: 52px;
+    }
+
+    .immersive-title {
+        font-size: clamp(1.8rem, 10vw, 3.5rem);
+    }
+}

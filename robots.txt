@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zannn123.github.io/DAPITAN-TOURISM/sitemap.xml

@@ -1,0 +1,22 @@
+{
+  "name": "Dapitan City Tourism",
+  "short_name": "Dapitan",
+  "description": "Explore Dapitan City tourism through history, nature, attractions, contacts, and immersive map views.",
+  "start_url": "/DAPITAN-TOURISM/",
+  "scope": "/DAPITAN-TOURISM/",
+  "display": "standalone",
+  "background_color": "#0b1d12",
+  "theme_color": "#0b1d12",
+  "icons": [
+    {
+      "src": "assets/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

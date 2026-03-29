@@ -1,0 +1,524 @@
+:root {
+    --nav-shell-bg:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 46%, rgba(255, 255, 255, 0.04) 100%),
+        rgba(28, 41, 55, 0.24);
+    --nav-shell-border: rgba(255, 255, 255, 0.24);
+    --nav-shell-border-top: rgba(255, 255, 255, 0.42);
+    --nav-shell-highlight: rgba(255, 255, 255, 0.22);
+    --nav-shell-shadow:
+        0 18px 40px rgba(4, 10, 18, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+    --nav-shell-blur: blur(24px) saturate(190%) brightness(1.05);
+    --nav-link-bg: transparent;
+    --nav-link-border: rgba(255, 255, 255, 0);
+    --nav-link-hover: rgba(255, 255, 255, 0.12);
+    --nav-link-active: rgba(255, 255, 255, 0.18);
+    --nav-link-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 18px rgba(7, 18, 31, 0.12);
+    --nav-pill-ease: 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#siteNavbar .top-bar-container {
+    top: clamp(12px, 2vw, 24px);
+    width: fit-content !important;
+    max-width: calc(100vw - 24px);
+    justify-content: center !important;
+    gap: 8px;
+}
+
+#siteNavbar .navbar,
+#siteNavbar .nav-weather {
+    position: relative;
+    overflow: hidden;
+    border-radius: 999px;
+    border: 1px solid var(--nav-shell-border);
+    border-top-color: var(--nav-shell-border-top);
+    background: var(--nav-shell-bg);
+    box-shadow: var(--nav-shell-shadow);
+    backdrop-filter: var(--nav-shell-blur);
+    -webkit-backdrop-filter: var(--nav-shell-blur);
+}
+
+#siteNavbar .navbar::before,
+#siteNavbar .nav-weather::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+        linear-gradient(180deg, var(--nav-shell-highlight) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.02) 62%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+}
+
+#siteNavbar .navbar::after,
+#siteNavbar .nav-weather::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+        radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.24), transparent 34%),
+        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.12) 40%, transparent 60%);
+    opacity: 0.56;
+    pointer-events: none;
+}
+
+#siteNavbar .navbar *,
+#siteNavbar .nav-weather * {
+    position: relative;
+    z-index: 1;
+}
+
+#siteNavbar .navbar {
+    flex: 1 1 auto;
+    width: fit-content !important;
+    max-width: calc(100vw - 210px);
+    min-width: 0;
+    min-height: 72px;
+    padding: 12px 18px 12px 16px !important;
+    gap: 16px;
+}
+
+#siteNavbar .nav-logo {
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding-left: 2px;
+}
+
+#siteNavbar .nav-logo-image {
+    height: clamp(38px, 3vw, 48px);
+    max-width: 220px;
+    filter:
+        drop-shadow(0 8px 18px rgba(255, 255, 255, 0.18))
+        drop-shadow(0 12px 20px rgba(6, 19, 29, 0.12));
+}
+
+#siteNavbar .nav-links {
+    flex: 1 1 auto;
+    display: flex;
+    position: relative;
+    isolation: isolate;
+    align-items: center;
+    min-width: 0;
+    gap: 8px;
+    justify-content: center;
+    --active-pill-x: 0px;
+    --active-pill-width: 0px;
+    --active-pill-height: 44px;
+    --active-pill-opacity: 0;
+}
+
+#siteNavbar .nav-links::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: var(--active-pill-width);
+    height: var(--active-pill-height);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: var(--nav-link-active);
+    box-shadow: var(--nav-link-shadow);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: var(--active-pill-opacity);
+    transform: translate3d(var(--active-pill-x), -50%, 0);
+    transform-origin: left center;
+    transition:
+        transform var(--nav-pill-ease),
+        width var(--nav-pill-ease),
+        opacity 180ms ease;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform, width;
+}
+
+#siteNavbar .nav-links.pill-no-transition::before {
+    transition: none;
+}
+
+#siteNavbar .nav-links li {
+    list-style: none;
+    position: relative;
+    z-index: 1;
+}
+
+#siteNavbar .nav-links li a {
+    min-width: 0;
+    height: 44px;
+    padding: 0 18px;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.92);
+    box-shadow: none !important;
+    text-shadow: 0 1px 1px rgba(7, 18, 31, 0.18);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition:
+        color 220ms ease,
+        transform 220ms ease,
+        opacity 220ms ease;
+}
+
+#siteNavbar .nav-links li a:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+#siteNavbar .nav-links li a.active,
+#siteNavbar .nav-links li a[aria-current="page"] {
+    color: #ffffff;
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+#siteNavbar .nav-weather {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    min-height: 72px;
+    min-width: 172px;
+    padding: 12px 16px;
+    gap: 10px;
+}
+
+#siteNavbar .weather-icon {
+    width: 42px;
+    height: 42px;
+    justify-content: center;
+}
+
+#siteNavbar .weather-icon svg {
+    width: 42px;
+    height: 42px;
+}
+
+#siteNavbar .weather-temp {
+    font-size: clamp(1.8rem, 2vw, 2.3rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+}
+
+#siteNavbar .weather-info {
+    gap: 2px;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+}
+
+#siteNavbar .weather-city {
+    color: rgba(255, 255, 255, 0.94);
+}
+
+#siteNavbar .weather-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 1024px) {
+    #siteNavbar .top-bar-container {
+        max-width: calc(100vw - 20px);
+        gap: 10px;
+    }
+
+    #siteNavbar .navbar {
+        width: fit-content !important;
+        max-width: calc(100vw - 182px);
+        min-width: 0;
+        min-height: 68px;
+        padding: 10px 16px 10px 14px !important;
+        gap: 10px;
+    }
+
+    #siteNavbar .nav-logo-image {
+        height: 40px;
+    }
+
+    #siteNavbar .nav-links {
+        gap: 4px;
+        --active-pill-height: 40px;
+    }
+
+    #siteNavbar .nav-links li a {
+        height: 40px;
+        padding: 0 12px;
+        font-size: 0.78rem;
+    }
+
+    #siteNavbar .nav-weather {
+        min-width: 150px;
+        min-height: 68px;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    #siteNavbar .weather-temp {
+        font-size: 1.65rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #siteNavbar .top-bar-container {
+        --mobile-shell-bg:
+            linear-gradient(145deg, rgba(213, 224, 182, 0.22) 0%, rgba(149, 168, 109, 0.16) 38%, rgba(52, 66, 43, 0.34) 100%),
+            rgba(25, 35, 29, 0.48);
+        --mobile-shell-shadow:
+            0 14px 30px rgba(6, 12, 11, 0.24),
+            inset 0 1px 0 rgba(255, 255, 255, 0.24),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+        --mobile-weather-size: 56px;
+        --mobile-nav-gap: 6px;
+        top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: min(328px, calc(100vw - 24px)) !important;
+        max-width: calc(100vw - 24px);
+        gap: var(--mobile-nav-gap);
+    }
+
+    #siteNavbar .nav-weather {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        position: relative;
+        top: auto;
+        right: auto;
+        transform: none;
+        flex: 0 0 var(--mobile-weather-size);
+        width: var(--mobile-weather-size);
+        min-width: var(--mobile-weather-size);
+        height: var(--mobile-weather-size);
+        min-height: var(--mobile-weather-size);
+        padding: 0;
+        gap: 0;
+        border-radius: 50%;
+        background: var(--mobile-shell-bg) !important;
+        box-shadow: var(--mobile-shell-shadow) !important;
+    }
+
+    #siteNavbar .navbar {
+        flex: 0 1 calc(100% - var(--mobile-weather-size) - var(--mobile-nav-gap));
+        width: calc(100% - var(--mobile-weather-size) - var(--mobile-nav-gap)) !important;
+        max-width: none;
+        min-width: 0 !important;
+        min-height: 56px !important;
+        margin: 0;
+        display: grid;
+        grid-template-columns: minmax(64px, 72px) minmax(0, 1fr);
+        align-items: center;
+        padding: 8px 10px 8px 12px !important;
+        gap: 8px !important;
+        border-color: rgba(255, 255, 255, 0.24) !important;
+        border-top-color: rgba(255, 255, 255, 0.42) !important;
+        background: var(--mobile-shell-bg) !important;
+        box-shadow: var(--mobile-shell-shadow) !important;
+    }
+
+    #siteNavbar .nav-logo {
+        padding-left: 0;
+        min-width: 0;
+        justify-content: flex-start;
+    }
+
+    #siteNavbar .nav-logo-image {
+        height: 28px !important;
+        max-width: 72px;
+        width: auto !important;
+        margin-right: 0;
+    }
+
+    #siteNavbar .weather-icon,
+    #siteNavbar .weather-info {
+        display: none !important;
+    }
+
+    #siteNavbar .weather-temp {
+        font-size: 1.1rem;
+        font-weight: 500;
+        letter-spacing: -0.04em;
+        line-height: 1;
+    }
+
+    #siteNavbar .nav-label {
+        display: none !important;
+    }
+
+    #siteNavbar .nav-icon {
+        display: block !important;
+        width: 17px;
+        height: 17px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.85;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
+    }
+
+    #siteNavbar .nav-links {
+        flex: none !important;
+        width: 100%;
+        min-width: 0 !important;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: center;
+        justify-items: center;
+        justify-content: stretch !important;
+        gap: 0 !important;
+        overflow: visible;
+        white-space: normal;
+    }
+
+    #siteNavbar .nav-links::before {
+        display: none;
+    }
+
+    #siteNavbar .nav-links li {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    #siteNavbar .nav-links li a {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
+        flex: none;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        color: rgba(255, 255, 255, 0.86) !important;
+    }
+
+    #siteNavbar .nav-links li a:hover {
+        background: rgba(255, 255, 255, 0.12) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 8px 18px rgba(7, 18, 31, 0.16) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    #siteNavbar .nav-links li a.active,
+    #siteNavbar .nav-links li a[aria-current="page"] {
+        background: rgba(255, 255, 255, 0.14) !important;
+        border-color: rgba(255, 255, 255, 0.28) !important;
+        color: #ffffff !important;
+        box-shadow:
+            0 8px 18px rgba(7, 18, 31, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+        transform: translateY(-1px);
+    }
+}
+
+@media (max-width: 420px) {
+    #siteNavbar .top-bar-container {
+        --mobile-weather-size: 54px;
+        width: min(320px, calc(100vw - 18px)) !important;
+        max-width: calc(100vw - 18px);
+        gap: 6px;
+    }
+
+    #siteNavbar .navbar {
+        width: calc(100% - var(--mobile-weather-size) - var(--mobile-nav-gap)) !important;
+        min-height: 54px !important;
+        grid-template-columns: minmax(58px, 66px) minmax(0, 1fr);
+        padding: 7px 9px 7px 11px !important;
+        gap: 7px !important;
+    }
+
+    #siteNavbar .nav-weather {
+        flex-basis: var(--mobile-weather-size);
+        width: var(--mobile-weather-size);
+        min-width: var(--mobile-weather-size);
+        height: var(--mobile-weather-size);
+        min-height: var(--mobile-weather-size);
+    }
+
+    #siteNavbar .nav-logo-image {
+        height: 26px !important;
+        max-width: 66px;
+    }
+
+    #siteNavbar .weather-temp {
+        font-size: 0.96rem;
+    }
+
+    #siteNavbar .nav-icon {
+        width: 15px;
+        height: 15px;
+    }
+
+    #siteNavbar .nav-links li a {
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 24px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    #siteNavbar .top-bar-container {
+        --mobile-weather-size: 50px;
+        --mobile-nav-gap: 5px;
+        width: min(304px, calc(100vw - 14px)) !important;
+        max-width: calc(100vw - 14px);
+    }
+
+    #siteNavbar .navbar {
+        width: calc(100% - var(--mobile-weather-size) - var(--mobile-nav-gap)) !important;
+        min-height: 50px !important;
+        grid-template-columns: minmax(54px, 60px) minmax(0, 1fr);
+        padding: 6px 8px 6px 10px !important;
+        gap: 6px !important;
+    }
+
+    #siteNavbar .nav-logo-image {
+        height: 24px !important;
+        max-width: 60px;
+    }
+
+    #siteNavbar .nav-links li a {
+        width: 22px !important;
+        height: 22px !important;
+        min-width: 22px !important;
+    }
+
+    #siteNavbar .nav-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    #siteNavbar .nav-weather {
+        flex-basis: var(--mobile-weather-size);
+        width: var(--mobile-weather-size);
+        min-width: var(--mobile-weather-size);
+        height: var(--mobile-weather-size);
+        min-height: var(--mobile-weather-size);
+    }
+
+    #siteNavbar .weather-temp {
+        font-size: 0.88rem;
+    }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    #siteNavbar .navbar,
+    #siteNavbar .nav-weather {
+        background: rgba(34, 48, 61, 0.84);
+    }
+
+    #siteNavbar .nav-links::before {
+        background: rgba(255, 255, 255, 0.16);
+    }
+}

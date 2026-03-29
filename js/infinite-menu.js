@@ -873,7 +873,7 @@ void main() {
 
     const fallbackItems = [
         {
-            image: 'assets/back.png',
+            image: 'assets/back.webp',
             link: '#',
             title: 'Explore',
             description: 'Add your destination cards here.'

@@ -1,49 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-PH">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dapitan Tourism</title>
+    <title>Dapitan City Tourism | Explore History, Nature, and Attractions</title>
+    <meta name="description" content="Explore Dapitan City tourism through historic sites, coastal attractions, 360-degree map views, and direct destination information in one experience.">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="author" content="Dapitan City Tourism">
+    <meta name="theme-color" content="#0b1d12">
+    <link rel="canonical" href="https://zannn123.github.io/DAPITAN-TOURISM/">
+    <meta property="og:locale" content="en_PH">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dapitan City Tourism">
+    <meta property="og:title" content="Dapitan City Tourism | Explore History, Nature, and Attractions">
+    <meta property="og:description" content="Discover Dapitan City through immersive visuals, tourist highlights, and destination guides for history, culture, and nature.">
+    <meta property="og:url" content="https://zannn123.github.io/DAPITAN-TOURISM/">
+    <meta property="og:image" content="https://zannn123.github.io/DAPITAN-TOURISM/assets/back.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dapitan City Tourism | Explore History, Nature, and Attractions">
+    <meta name="twitter:description" content="Discover Dapitan City through immersive visuals, tourist highlights, and destination guides for history, culture, and nature.">
+    <meta name="twitter:image" content="https://zannn123.github.io/DAPITAN-TOURISM/assets/back.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+    <link rel="preload" href="assets/fonts/BARABARA-final.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/back.webp" as="image">
+    <link rel="preload" href="assets/front.webp" as="image">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css?v=20260330a">
+    <link rel="stylesheet" href="css/masonry.css">
+    <link rel="icon" type="image/png" href="assets/favicon-64.png?v=20260330b">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "@id": "https://zannn123.github.io/DAPITAN-TOURISM/#website",
+                    "url": "https://zannn123.github.io/DAPITAN-TOURISM/",
+                    "name": "Dapitan City Tourism",
+                    "inLanguage": "en-PH"
+                },
+                {
+                    "@type": "Organization",
+                    "@id": "https://zannn123.github.io/DAPITAN-TOURISM/#organization",
+                    "name": "Dapitan City Tourism",
+                    "url": "https://zannn123.github.io/DAPITAN-TOURISM/",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://zannn123.github.io/DAPITAN-TOURISM/assets/logo.png"
+                    }
+                },
+                {
+                    "@type": "WebPage",
+                    "@id": "https://zannn123.github.io/DAPITAN-TOURISM/#webpage",
+                    "url": "https://zannn123.github.io/DAPITAN-TOURISM/",
+                    "name": "Dapitan City Tourism | Explore History, Nature, and Attractions",
+                    "description": "Explore Dapitan City tourism through historic sites, coastal attractions, 360-degree map views, and direct destination information in one experience.",
+                    "isPartOf": {
+                        "@id": "https://zannn123.github.io/DAPITAN-TOURISM/#website"
+                    },
+                    "about": {
+                        "@id": "https://zannn123.github.io/DAPITAN-TOURISM/#organization"
+                    }
+                }
+            ]
+        }
+    </script>
 </head>
 
-<body>
-    <nav class="navbar animate-nav">
-        <div class="nav-logo">
-            <img src="assets/logo.png" alt="Dapitan Logo" class="nav-logo-image">
-        </div>
-        <ul class="nav-links">
-            <li><a href="#" class="nav-item" id="navHome">Home</a></li>
-            <li><a href="#" class="nav-item" id="navExplore">Explore</a></li>
-            <li><a href="map.html" class="nav-item">Map</a></li>
-            <li><a href="contacts.html" class="nav-item">Contacts</a></li>
-        </ul>
-    </nav>
+<body data-page="home">
+    <div id="siteNavbar"></div>
+    <h1 class="visually-hidden">Dapitan City Tourism</h1>
 
     <section class="hero">
-        <img src="assets/back.png" alt="Background" class="layer background animate-bg" id="back">
+        <img src="assets/back.webp" alt="Background" class="layer background animate-bg" id="back" fetchpriority="high" decoding="async">
 
         <div class="title-group animate-title" id="text">
-            <h2 class="subheading">THE LIVING CANVAS</h2>
-            <h1 class="text-main">DAPITAN</h1>
+            <p class="subheading">THE LIVING CANVAS</p>
+            <p class="text-main">DAPITAN</p>
         </div>
 
-        <img src="assets/front.png" alt="Foreground" class="layer foreground animate-bg" id="front">
-        
+        <img src="assets/front.webp" alt="Foreground" class="layer foreground animate-bg" id="front" fetchpriority="high" decoding="async">
+
         <!-- Hollow Text Layer identical to the solid text, but sits OVER the foreground -->
-        <div class="title-group-hollow animate-title" id="text-hollow">
-            <h2 class="subheading">THE LIVING CANVAS</h2>
-            <h1 class="text-hollow-main">DAPITAN</h1>
+        <div class="title-group-hollow animate-title" id="text-hollow" aria-hidden="true">
+            <p class="subheading">THE LIVING CANVAS</p>
+            <p class="text-hollow-main">DAPITAN</p>
         </div>
     </section>
 
-    <!-- Scrollable Space -->
     <section class="content">
-        <div class="content-inner">
-            <!-- Space for scrollabilityyyyyyyyyy -->
+        <div class="content-inner home-content">
+            <section class="living-canvas-feature" aria-labelledby="livingCanvasTitle">
+                <div class="living-canvas-stage" data-parallax-scene>
+                    <img src="assets/back2.webp" alt="" class="living-canvas-layer living-canvas-layer-back"
+                        data-scroll-parallax="-0.12" data-hover-parallax="10">
+
+                    <div class="living-canvas-copy">
+                        <h2 class="living-canvas-title" id="livingCanvasTitle">THE LIVING<br>CANVAS</h2>
+                        <p class="living-canvas-description">
+                            Paint your perfect getaway. From the historic,
+                            quiet hues of the Rizal Shrine to the vibrant,
+                            sun-drenched shores of Dakak, immerse
+                            yourself in a masterpiece of culture and nature.
+                        </p>
+                    </div>
+
+                    <img src="assets/front2.webp" alt="Layered immersive view of Dapitan landmarks"
+                        class="living-canvas-layer living-canvas-layer-front" data-scroll-parallax="0.2"
+                        data-hover-parallax="28">
+                </div>
+            </section>
+
+            <!-- Smart Tourism Banner -->
+            <section class="smart-tourism-banner" aria-labelledby="smartTourismTitle">
+                <video class="smart-bg-video" autoplay loop muted playsinline preload="none" poster="assets/vid-poster.jpg"
+                    data-deferred-media="true" data-load-strategy="visible">
+                    <source data-src="assets/vid.mp4" type="video/mp4">
+                </video>
+                <div class="smart-overlay"></div>
+                
+                <div class="smart-content-wrapper">
+                    <div class="smart-text-content">
+                        <h2 class="smart-title" id="smartTourismTitle">DAPIT NA<br>SA DAPITAN</h2>
+                        <p class="smart-description">
+                            Uncover the secrets of Dapitan with a simple
+                            tap! Look for our new smart informational
+                            stands at historic sites. Scan the QR code or use
+                            NFC to instantly access interactive guides,
+                            historical facts, and cultural insights straight
+                            from your phone.
+                        </p>
+                    </div>
+                    <div class="smart-image-content">
+                        <img src="assets/Picture1.webp" alt="Smart Informational Stand" class="smart-stand-image" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Masonry Gallery Section -->
+            <section class="masonry-section" id="masonryGallery">
+                <div class="masonry-container">
+                    <div id="masonryGrid" class="masonry-grid"></div>
+                </div>
+            </section>
+
         </div>
     </section>
+
+    <!-- Creative Responsive Footer -->
+    <footer class="main-site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <!-- Branding & Trust Section -->
+                <div class="footer-col footer-brand">
+                    <img src="assets/logo.png" alt="Dapitan Tourism Logo" class="footer-logo">
+                    <h3 class="footer-brand-title">Dapitan City</h3>
+                    <p class="footer-tagline">Living History, Pristine Nature, and Cultural Heritage. Experience the Shrine City of the Philippines. A sanctuary of culture, nature, and adventure.</p>
+                    
+                    <div class="trust-icons">
+                        <!-- Trust/Certification symbols (SVG) -->
+                        <span class="trust-badge">EST. 1563</span>
+                        <span class="trust-badge">HISTORIC HEART</span>
+                        <span class="trust-badge">ECO-TOURISM</span>
+                    </div>
+                </div>
+
+                <!-- Explore Section -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="map.html#shrine">Rizal Shrine</a></li>
+                        <li><a href="map.html#dakak">Dakak Park & Resort</a></li>
+                        <li><a href="map.html#fantasyland">Fantasy Land</a></li>
+                        <li><a href="contacts.html">St. James Parish</a></li>
+                        <li><a href="contacts.html">Aliguay Island</a></li>
+                    </ul>
+                </div>
+
+                <!-- Information Section -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="map.html">Interactive Map</a></li>
+                        <li><a href="contacts.html">Tourism Office</a></li>
+                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="about.html">Privacy Policy</a></li>
+                        <li><a href="about.html">Travel Advisory</a></li>
+                    </ul>
+                </div>
+
+                <!-- Follow Section -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Connect With Us</h4>
+                    <div class="social-icons">
+                        <a href="https://facebook.com/dapitancity" class="social-link" aria-label="Facebook" target="_blank">
+                            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://instagram.com/dapitancity" class="social-link" aria-label="Instagram" target="_blank">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.247 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.247-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.247-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.247 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="https://twitter.com/dapitancity" class="social-link" aria-label="X (Twitter)" target="_blank">
+                            <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zm-1.292 19.49h2.039L6.486 3.24H4.298l13.311 17.403z"/></svg>
+                        </a>
+                        <a href="https://youtube.com/dapitancity" class="social-link" aria-label="YouTube" target="_blank">
+                            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        </a>
+                    </div>
+                    <p class="footer-credits-note">Crafted with <span class="heart">♥</span> in Dapitan</p>
+                </div>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-inner">
+                    <p>&copy; 2026 Dapitan City Tourism. All rights reserved.</p>
+                    <div class="legal-links">
+                        <a href="#">Terms & Conditions</a>
+                        <span class="separator">|</span>
+                        <a href="#">Accessibility</a>
+                        <span class="separator">|</span>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
 
     <section class="explore-view" id="exploreView" aria-hidden="true">
         <button type="button" class="explore-close" id="exploreClose">Back To Home</button>
@@ -68,9 +256,17 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
     <script src="js/vendor/gl-matrix-min.js"></script>
     <script src="js/infinite-menu.js"></script>
+    <script src="js/parallax.js"></script>
+    <script src="js/masonry.js"></script>
+    <script src="js/navbar.js?v=20260330a"></script>
+    <script src="js/performance.js?v=20260330b"></script>
     <script src="js/script.js"></script>
+    <div class="elfsight-app-f615634e-c905-4465-bfcb-c8968f473adf" data-elfsight-app-lazy></div>
 </body>
 
 </html>
