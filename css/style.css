@@ -47,6 +47,8 @@
 html {
     background: var(--forest-900);
     overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -480,7 +482,7 @@ body.explore-open .top-bar-container {
 }
 
 .hero-kicker {
-    top: calc(52% - clamp(76px, 7.4vw, 118px));
+    top: calc(52% - clamp(76px, 7.4vw, 118px) - var(--hero-kicker-safe-offset, 0px));
     z-index: 6;
     width: auto;
     max-width: calc(100vw - 56px);
@@ -514,11 +516,27 @@ body.explore-open .top-bar-container {
     background: linear-gradient(90deg, #ff8a00 0%, #ffd93d 18%, #56e39f 38%, #2bd9fe 58%, #7d6bff 78%, #ff63b8 100%);
     background-size: 300% 100%;
     background-repeat: repeat;
-    background-position: var(--hero-kicker-position, 0% 50%);
+    background-position: var(--animated-gradient-position, 0% 50%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: none;
+}
+
+.smart-title-gradient {
+    display: inline-block;
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(90deg, #ff8a00 0%, #ffd93d 18%, #56e39f 38%, #2bd9fe 58%, #7d6bff 78%, #ff63b8 100%);
+    background-size: 300% 100%;
+    background-repeat: repeat;
+    background-position: var(--animated-gradient-position, 0% 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
+    filter: saturate(1.14) brightness(1.12) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.34));
 }
 
 .text-main,
@@ -979,7 +997,7 @@ body.explore-open .top-bar-container {
     }
 
     .hero-kicker {
-        top: calc(52% - clamp(56px, 6.8vw, 84px));
+        top: calc(52% - clamp(56px, 6.8vw, 84px) - var(--hero-kicker-safe-offset, 0px));
         max-width: calc(100vw - 36px);
     }
 
@@ -1112,7 +1130,7 @@ body.explore-open .top-bar-container {
     }
 
     .hero-kicker {
-        top: calc(49% - clamp(42px, 8vw, 60px));
+        top: calc(49% - clamp(42px, 8vw, 60px) - var(--hero-kicker-safe-offset, 0px));
         max-width: calc(100vw - 28px);
     }
 
@@ -2437,7 +2455,8 @@ body.explore-open .top-bar-container {
 }
 
 @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-    .hero-kicker {
+    .hero-kicker,
+    .smart-title-gradient {
         color: #ffffff;
         background: none;
         -webkit-text-fill-color: initial;

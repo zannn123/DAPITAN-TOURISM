@@ -194,6 +194,13 @@
             return;
         }
 
+        if (document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')) {
+            window.__dapitanElfsightLoaded = true;
+            return;
+        }
+
+        const initialDelay = isCoarsePointer ? 1800 : 900;
+        const interactionDelay = isCoarsePointer ? 250 : 120;
         let queued = false;
         const queueLoad = (delay = 0) => {
             if (queued) {
@@ -205,14 +212,18 @@
         };
 
         afterWindowLoad(() => {
-            window.setTimeout(() => queueLoad(), isCoarsePointer ? 7000 : 4500);
+            queueLoad(initialDelay);
         });
 
         ['pointerdown', 'touchstart', 'keydown'].forEach(eventName => {
             window.addEventListener(eventName, () => {
-                queueLoad(isCoarsePointer ? 1800 : 900);
+                queueLoad(interactionDelay);
             }, { once: true, passive: true });
         });
+
+        window.addEventListener('pageshow', () => {
+            queueLoad(interactionDelay);
+        }, { once: true });
     }
 
     setupDeferredVideos();
