@@ -119,7 +119,8 @@ body.explore-open {
     opacity: 0;
     animation: navFadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     animation-delay: 0.2s;
-    pointer-events: none; /* Prevent clicks during animation */
+    pointer-events: none;
+    /* Prevent clicks during animation */
 }
 
 .animate-nav * {
@@ -164,16 +165,17 @@ body.explore-open .top-bar-container {
 
 
 
-.top-bar-container > * {
+.top-bar-container>* {
     pointer-events: auto;
 }
 
-.navbar, .nav-weather {
+.navbar,
+.nav-weather {
     background: var(--glass-bg-main);
     backdrop-filter: var(--glass-backdrop);
     -webkit-backdrop-filter: var(--glass-backdrop);
     border: 1px solid rgba(255, 255, 255, 0.45);
-    box-shadow: 
+    box-shadow:
         0 18px 48px rgba(0, 0, 0, 0.25),
         inset 0 1px 2px rgba(255, 255, 255, 0.65),
         inset 0 -1px 2px rgba(0, 0, 0, 0.1);
@@ -182,10 +184,12 @@ body.explore-open .top-bar-container {
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Contains the internal glass shine */
+    overflow: hidden;
+    /* Contains the internal glass shine */
 }
 
-.navbar::before, .nav-weather::before {
+.navbar::before,
+.nav-weather::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -194,7 +198,8 @@ body.explore-open .top-bar-container {
     z-index: 0;
 }
 
-.navbar *, .nav-weather * {
+.navbar *,
+.nav-weather * {
     position: relative;
     z-index: 1;
 }
@@ -211,7 +216,8 @@ body.explore-open .top-bar-container {
 }
 
 .nav-weather {
-    display: none; /* Desktop Only handled by media query below */
+    display: none;
+    /* Desktop Only handled by media query below */
     gap: 16px;
     padding: 0 28px;
     white-space: nowrap;
@@ -291,7 +297,8 @@ body.explore-open .top-bar-container {
 
 /* ─── NAVBAR ICONS & RESPONSIVE STATE ─── */
 .nav-icon {
-    display: none; /* Hidden on desktop by default */
+    display: none;
+    /* Hidden on desktop by default */
     width: 24px;
     height: 24px;
     fill: currentColor;
@@ -315,11 +322,12 @@ body.explore-open .top-bar-container {
         height: 64px !important;
         padding: 0 12px 0 18px !important;
         gap: 12px !important;
-        background: rgba(30, 45, 35, 0.5) !important; /* Slightly darker green glass */
+        background: rgba(30, 45, 35, 0.5) !important;
+        /* Slightly darker green glass */
         backdrop-filter: blur(24px) saturate(160%) !important;
         -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
         border: 1.5px solid rgba(255, 255, 255, 0.18) !important;
-        box-shadow: 
+        box-shadow:
             0 12px 40px rgba(0, 0, 0, 0.4),
             inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
         border-radius: 999px !important;
@@ -327,18 +335,22 @@ body.explore-open .top-bar-container {
 
 
     .nav-logo-image {
-        height: 38px !important; /* Larger distinctive logo as in ref */
+        height: 38px !important;
+        /* Larger distinctive logo as in ref */
         width: auto !important;
         margin-right: 4px;
-        filter: none !important; /* Keep colorful logo vibrant */
+        filter: none !important;
+        /* Keep colorful logo vibrant */
     }
 
     .nav-label {
-        display: none !important; /* Hide text on mobile */
+        display: none !important;
+        /* Hide text on mobile */
     }
 
     .nav-icon {
-        display: block !important; /* Show icons on mobile */
+        display: block !important;
+        /* Show icons on mobile */
     }
 
     .nav-links {
@@ -360,8 +372,10 @@ body.explore-open .top-bar-container {
 
     .nav-links li a.active,
     .nav-links li a[aria-current="page"] {
-        background: #ffffff !important; /* White pill for active item */
-        color: #0b1d12 !important; /* Dark icon for contrast */
+        background: #ffffff !important;
+        /* White pill for active item */
+        color: #0b1d12 !important;
+        /* Dark icon for contrast */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
         transform: scale(1.05);
     }
@@ -453,25 +467,29 @@ body.explore-open .top-bar-container {
     z-index: 3;
 }
 
+.hero-kicker,
 .title-group,
 .title-group-hollow {
     position: absolute;
-    top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(94vw, 1300px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: center;
     pointer-events: none;
     will-change: transform;
     backface-visibility: hidden;
 }
 
-.title-group {
-    gap: clamp(6px, 1vw, 12px);
+.hero-kicker {
+    top: calc(52% - clamp(76px, 7.4vw, 118px));
+    z-index: 6;
+    width: auto;
+    max-width: calc(100vw - 56px);
+}
+
+.title-group,
+.title-group-hollow {
+    top: 52%;
+    width: min(94vw, 1300px);
 }
 
 .title-group {
@@ -482,18 +500,25 @@ body.explore-open .top-bar-container {
     z-index: 4;
 }
 
-.subheading {
+.hero-kicker {
     display: block;
-    max-width: 22ch;
-    color: var(--text-primary);
+    color: #ffffff;
     font-family: 'Inter', sans-serif;
-    font-size: clamp(0.78rem, 1.2vw, 1.3rem);
-    font-weight: 400;
-    letter-spacing: clamp(0.16em, 0.28vw, 0.26em);
-    margin-bottom: 0.15em;
-    line-height: 1.35;
-    text-wrap: balance;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    font-size: clamp(0.98rem, 1.58vw, 1.72rem);
+    font-weight: 800;
+    letter-spacing: clamp(0.08em, 0.18vw, 0.16em);
+    margin-bottom: 0;
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ff8a00 0%, #ffd93d 18%, #56e39f 38%, #2bd9fe 58%, #7d6bff 78%, #ff63b8 100%);
+    background-size: 300% 100%;
+    background-repeat: repeat;
+    background-position: var(--hero-kicker-position, 0% 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
 }
 
 .text-main,
@@ -953,15 +978,14 @@ body.explore-open .top-bar-container {
         width: calc(100vw - 24px);
     }
 
-    .title-group {
-        gap: 8px;
+    .hero-kicker {
+        top: calc(52% - clamp(56px, 6.8vw, 84px));
+        max-width: calc(100vw - 36px);
     }
 
-    .subheading {
-        margin-bottom: 0;
-        max-width: 18ch;
-        font-size: clamp(0.66rem, 2vw, 0.82rem);
-        letter-spacing: 0.15em;
+    .hero-kicker {
+        font-size: clamp(0.78rem, 2.3vw, 1.08rem);
+        letter-spacing: 0.09em;
     }
 
     .text-main,
@@ -1087,16 +1111,15 @@ body.explore-open .top-bar-container {
         width: calc(100vw - 16px);
     }
 
-    .title-group {
-        gap: 10px;
+    .hero-kicker {
+        top: calc(49% - clamp(42px, 8vw, 60px));
+        max-width: calc(100vw - 28px);
     }
 
-    .subheading {
-        max-width: min(74vw, 15ch);
-        margin-bottom: 0;
-        font-size: 0.62rem;
-        line-height: 1.32;
-        letter-spacing: 0.14em;
+    .hero-kicker {
+        font-size: clamp(0.62rem, 2.6vw, 0.84rem);
+        line-height: 1;
+        letter-spacing: 0.06em;
     }
 
     .text-main,
@@ -1123,11 +1146,14 @@ body.explore-open .top-bar-container {
     .living-canvas-copy {
         left: 20px;
         right: 20px;
-        top: clamp(100px, 20%, 180px); /* Pushed significantly lower into the sky area */
-        transform: translate3d(0, calc(var(--scroll-parallax-offset, 0px)), 0); /* Prevents the desktop -50% offset from pulling it up off-screen */
+        top: clamp(100px, 20%, 180px);
+        /* Pushed significantly lower into the sky area */
+        transform: translate3d(0, calc(var(--scroll-parallax-offset, 0px)), 0);
+        /* Prevents the desktop -50% offset from pulling it up off-screen */
         width: auto;
         max-width: 320px;
-        z-index: 4; /* Pull text in front of grass on mobile */
+        z-index: 4;
+        /* Pull text in front of grass on mobile */
         padding: 0;
         border: 0;
         border-radius: 0;
@@ -2381,7 +2407,8 @@ body.explore-open .top-bar-container {
     margin-right: calc(50% - 50vw);
     height: 85vh;
     display: flex;
-    align-items: stretch; /* Allow wrapper to stretch full height */
+    align-items: stretch;
+    /* Allow wrapper to stretch full height */
     justify-content: center;
     overflow: hidden;
     color: var(--text-primary);
@@ -2409,16 +2436,26 @@ body.explore-open .top-bar-container {
     z-index: 2;
 }
 
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero-kicker {
+        color: #ffffff;
+        background: none;
+        -webkit-text-fill-color: initial;
+    }
+}
+
 .smart-content-wrapper {
     position: relative;
     z-index: 3;
     display: flex;
     flex-direction: row;
-    align-items: stretch; /* Allow text and image cells to span full height */
+    align-items: stretch;
+    /* Allow text and image cells to span full height */
     justify-content: space-between;
     width: min(90%, 1200px);
     gap: 60px;
-    padding: 0; /* Remove padding so it touches the bottom edge */
+    padding: 0;
+    /* Remove padding so it touches the bottom edge */
 }
 
 .smart-text-content {
@@ -2427,7 +2464,8 @@ body.explore-open .top-bar-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 80px 0; /* Put padding securely on text instead */
+    padding: 80px 0;
+    /* Put padding securely on text instead */
 }
 
 .smart-title {
@@ -2462,7 +2500,8 @@ body.explore-open .top-bar-container {
     max-width: 600px;
     height: auto;
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
-    transform-origin: bottom center; /* Scale from bottom edge */
+    transform-origin: bottom center;
+    /* Scale from bottom edge */
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
 }
 
@@ -2476,13 +2515,15 @@ body.explore-open .top-bar-container {
         flex-direction: column;
         text-align: center;
         gap: 20px;
-        padding: 0; /* Let text content handle top spacing, keep bottom touched */
+        padding: 0;
+        /* Let text content handle top spacing, keep bottom touched */
     }
 
     .smart-text-content {
         align-items: center;
         max-width: 100%;
-        padding: 60px 20px 0; /* Add top and side padding for mobile, 0 bottom */
+        padding: 60px 20px 0;
+        /* Add top and side padding for mobile, 0 bottom */
     }
 
     .smart-image-content {
@@ -2510,13 +2551,15 @@ body.explore-open .top-bar-container {
 .elfsight-app-f615634e-c905-4465-bfcb-c8968f473adf [class*="Button"],
 .elfsight-app-f615634e-c905-4465-bfcb-c8968f473adf [class*="WidgetBackground"],
 .elfsight-app-f615634e-c905-4465-bfcb-c8968f473adf [class*="Bubble"] {
-    background: rgba(30, 60, 40, 0.4) !important; /* Dark green glass tint matching Dapitan */
+    background: rgba(30, 60, 40, 0.4) !important;
+    /* Dark green glass tint matching Dapitan */
     backdrop-filter: blur(20px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    border-top-color: rgba(255, 255, 255, 0.5) !important; /* Shine effect */
-    box-shadow: 
-        0 14px 34px rgba(0, 0, 0, 0.4), 
+    border-top-color: rgba(255, 255, 255, 0.5) !important;
+    /* Shine effect */
+    box-shadow:
+        0 14px 34px rgba(0, 0, 0, 0.4),
         inset 0 2px 4px rgba(255, 255, 255, 0.2) !important;
 }
 
@@ -2533,6 +2576,7 @@ body.explore-open .top-bar-container {
 
 /* Shift Chatbot up on mobile to avoid overlapping the Explore arrow */
 @media (max-width: 768px) {
+
     .elfsight-app-f615634e-c905-4465-bfcb-c8968f473adf div[role="button"],
     .elfsight-app-f615634e-c905-4465-bfcb-c8968f473adf [class*="Button"],
     .elfsight-app-f615634e-c905-4465-bfcb-c8968f473adf [class*="Bubble"] {
