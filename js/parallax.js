@@ -3,7 +3,6 @@
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const layers = [
         { element: document.getElementById('back'), mouseSpeed: -0.2, scrollSpeed: 0.4 },
-        { element: document.getElementById('text-kicker'), mouseSpeed: 0.5, scrollSpeed: -0.2 },
         { element: document.getElementById('text'), mouseSpeed: 0.5, scrollSpeed: -0.2 },
         { element: document.getElementById('front'), mouseSpeed: 1.2, scrollSpeed: 0 },
         { element: document.getElementById('text-hollow'), mouseSpeed: 0.5, scrollSpeed: -0.2 }
@@ -141,7 +140,7 @@
             const moveX = currentX * layer.mouseSpeed;
             const moveY = (currentY * layer.mouseSpeed) + (currentScroll * layer.scrollSpeed);
 
-            if (layer.element.id === 'text' || layer.element.id === 'text-hollow' || layer.element.id === 'text-kicker') {
+            if (layer.element.id === 'text' || layer.element.id === 'text-hollow') {
                 const opacity = Math.max(1 - (currentScroll / 500), 0);
                 layer.element.style.opacity = opacity;
                 layer.element.style.transform = `translate3d(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px), 0)`;

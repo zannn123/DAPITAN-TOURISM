@@ -1,60 +1,18 @@
 (() => {
     const animatedNodes = Array.from(document.querySelectorAll('[data-animated-gradient]'));
-    const kicker = document.getElementById('text-kicker');
-    const hero = kicker?.closest('.hero') || null;
-    const heroWordmark = document.querySelector('#text .text-main');
-
-    if (!animatedNodes.length && !hero) {
+    if (!animatedNodes.length) {
         return;
     }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
         animatedNodes.forEach(node => node.style.setProperty('--animated-gradient-position', '50% 50%'));
-    }
-
-    const measureTargets = hero && kicker && heroWordmark
-        ? { hero, kicker, heroWordmark }
-        : null;
-
-    let layoutFrameId = 0;
-
-    const scheduleHeroLayout = () => {
-        if (!measureTargets || layoutFrameId) {
-            return;
-        }
-
-        layoutFrameId = requestAnimationFrame(syncHeroLayout);
-    };
-
-    const syncHeroLayout = () => {
-        layoutFrameId = 0;
-
-        if (!measureTargets) {
-            return;
-        }
-
-        const { hero: heroElement, kicker: kickerElement, heroWordmark: wordmarkElement } = measureTargets;
-
-        const viewportWidth = window.visualViewport?.width || window.innerWidth;
-        const desiredGap = viewportWidth <= 520 ? 6 : viewportWidth <= 820 ? 8 : 10;
-        const heroRect = heroElement.getBoundingClientRect();
-        const wordmarkRect = wordmarkElement.getBoundingClientRect();
-        const kickerRect = kickerElement.getBoundingClientRect();
-        const targetBottom = wordmarkRect.top - desiredGap;
-        const targetCenter = (targetBottom - heroRect.top) - (kickerRect.height / 2);
-
-        kickerElement.style.top = `${Math.max(targetCenter, 16)}px`;
-    };
-
-    if (prefersReducedMotion) {
-        scheduleHeroLayout();
         return;
     }
 
     const items = animatedNodes.map(node => ({
         element: node,
-        root: node.closest('.hero, .smart-tourism-banner') || node,
+        root: node.closest('.hero, .smart-tourism-banner, .immersive-section') || node,
         duration: Number.parseFloat(node.dataset.gradientSpeed || '8000'),
         elapsed: 0,
         lastTime: null,
@@ -163,32 +121,4 @@
 
     items.forEach(item => updateGradient(item, 0));
     start();
-
-    scheduleHeroLayout();
-    window.addEventListener('load', scheduleHeroLayout, { once: true });
-    window.addEventListener('resize', scheduleHeroLayout, { passive: true });
-    window.addEventListener('orientationchange', scheduleHeroLayout, { passive: true });
-    window.addEventListener('pageshow', scheduleHeroLayout);
-    window.visualViewport?.addEventListener('resize', scheduleHeroLayout, { passive: true });
-    window.visualViewport?.addEventListener('scroll', scheduleHeroLayout, { passive: true });
-
-    if ('ResizeObserver' in window && measureTargets) {
-        const resizeObserver = new ResizeObserver(scheduleHeroLayout);
-        resizeObserver.observe(measureTargets.hero);
-        resizeObserver.observe(measureTargets.kicker);
-        resizeObserver.observe(measureTargets.heroWordmark);
-    }
-
-    if (document.fonts?.ready) {
-        document.fonts.ready.then(() => {
-            scheduleHeroLayout();
-            window.setTimeout(scheduleHeroLayout, 120);
-            window.setTimeout(scheduleHeroLayout, 420);
-            window.setTimeout(scheduleHeroLayout, 960);
-        });
-    } else {
-        window.setTimeout(scheduleHeroLayout, 120);
-        window.setTimeout(scheduleHeroLayout, 420);
-        window.setTimeout(scheduleHeroLayout, 960);
-    }
 })();

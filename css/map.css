@@ -93,6 +93,19 @@ html {
     text-transform: uppercase;
 }
 
+.immersive-title[data-animated-gradient="true"] {
+    background: linear-gradient(90deg, #ff8a00 0%, #ffd93d 18%, #56e39f 38%, #2bd9fe 58%, #7d6bff 78%, #ff63b8 100%);
+    background-size: 300% 100%;
+    background-repeat: repeat;
+    background-position: var(--animated-gradient-position, 0% 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
+    filter: saturate(1.08) brightness(1.05) drop-shadow(0 10px 26px rgba(0, 0, 0, 0.5));
+}
+
 .immersive-description {
     font-family: 'Inter', sans-serif;
     font-size: clamp(0.85rem, 1.2vw, 1.15rem);
@@ -224,5 +237,13 @@ html {
 
     .immersive-title {
         font-size: clamp(1.8rem, 10vw, 3.5rem);
+    }
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .immersive-title[data-animated-gradient="true"] {
+        color: #ffffff;
+        background: none;
+        -webkit-text-fill-color: initial;
     }
 }
