@@ -845,12 +845,15 @@ body.explore-open .top-bar-container {
     max-width: none;
     color: var(--text-primary);
     font-size: clamp(1.9rem, 3.8vw, 4.2rem);
+    line-height: 1.15;
     text-wrap: balance;
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     -webkit-hyphens: auto;
-    overflow: hidden;
+    overflow: visible;
+    padding-block: 0;
+    margin-block: 0;
     text-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
     pointer-events: none;
 }
@@ -1262,6 +1265,14 @@ body.explore-open .top-bar-container {
 
     .action-button-icon {
         font-size: 1.25rem;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .face-title {
+        line-height: 1.16;
+        padding-block: 0.16em 0.12em;
+        margin-block: -0.16em -0.12em;
     }
 }
 
