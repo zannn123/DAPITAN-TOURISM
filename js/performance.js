@@ -1,4 +1,6 @@
 (() => {
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
     const idle = callback => {
         if ('requestIdleCallback' in window) {
             window.requestIdleCallback(callback, { timeout: 2000 });
@@ -193,18 +195,23 @@
         }
 
         let queued = false;
-        const queueLoad = () => {
+        const queueLoad = (delay = 0) => {
             if (queued) {
                 return;
             }
 
             queued = true;
-            idle(loadElfsight);
+            window.setTimeout(() => idle(loadElfsight), delay);
         };
 
-        window.addEventListener('load', queueLoad, { once: true });
-        ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(eventName => {
-            window.addEventListener(eventName, queueLoad, { once: true, passive: true });
+        afterWindowLoad(() => {
+            window.setTimeout(() => queueLoad(), isCoarsePointer ? 7000 : 4500);
+        });
+
+        ['pointerdown', 'touchstart', 'keydown'].forEach(eventName => {
+            window.addEventListener(eventName, () => {
+                queueLoad(isCoarsePointer ? 1800 : 900);
+            }, { once: true, passive: true });
         });
     }
 

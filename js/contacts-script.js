@@ -130,7 +130,12 @@
 
     let current = 0;
     let autoRotateId = null;
+    let carouselInView = true;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const carouselRoot = slidesEl.closest('.carousel-side') || slidesEl;
+    const slides = [];
+    const dots = [];
+    const thumbs = [];
     const slideImages = [];
     const thumbImages = [];
     const backdropSlides = [];
@@ -190,6 +195,7 @@
         `;
         slide.addEventListener('click', () => goTo(index));
         slidesEl.appendChild(slide);
+        slides.push(slide);
         slideImages.push(slide.querySelector('img'));
 
         const dot = document.createElement('button');
@@ -197,12 +203,14 @@
         dot.setAttribute('aria-label', `Go to ${spot.title}`);
         dot.addEventListener('click', () => goTo(index));
         dotsEl.appendChild(dot);
+        dots.push(dot);
 
         const thumb = document.createElement('div');
         thumb.className = 'carousel-thumb' + (index === 0 ? ' active' : '');
         thumb.innerHTML = `<img ${index < 2 ? `src="${spot.image}"` : `data-src="${spot.image}"`} alt="${spot.title}" loading="lazy" decoding="async">`;
         thumb.addEventListener('click', () => goTo(index));
         thumbsEl.appendChild(thumb);
+        thumbs.push(thumb);
         thumbImages.push(thumb.querySelector('img'));
     });
 
@@ -225,21 +233,21 @@
         primeSpot(current + 1);
         slidesEl.style.transform = `translateX(-${current * 100}%)`;
 
-        document.querySelectorAll('.contacts-backdrop-slide').forEach((slide, index) => {
+        backdropSlides.forEach((slide, index) => {
             slide.classList.toggle('active', index === current);
         });
 
-        document.querySelectorAll('.carousel-slide').forEach((slide, index) => {
+        slides.forEach((slide, index) => {
             slide.classList.toggle('active', index === current);
         });
 
-        document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+        dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === current);
         });
 
-        document.querySelectorAll('.carousel-thumb').forEach((thumb, index) => {
+        thumbs.forEach((thumb, index) => {
             thumb.classList.toggle('active', index === current);
-            if (index === current) {
+            if (index === current && thumb.offsetParent !== null) {
                 thumb.scrollIntoView({
                     behavior: prefersReducedMotion ? 'auto' : 'smooth',
                     block: 'nearest',
@@ -328,7 +336,7 @@
 
     function restartAutoplay() {
         clearAutoplay();
-        if (prefersReducedMotion) {
+        if (prefersReducedMotion || document.hidden || !carouselInView) {
             return;
         }
 
@@ -368,6 +376,24 @@
             restartAutoplay();
         }
     });
+
+    if ('IntersectionObserver' in window) {
+        const autoplayObserver = new IntersectionObserver(entries => {
+            const [entry] = entries;
+            carouselInView = Boolean(entry?.isIntersecting);
+
+            if (carouselInView) {
+                restartAutoplay();
+                return;
+            }
+
+            clearAutoplay();
+        }, {
+            threshold: 0.25
+        });
+
+        autoplayObserver.observe(carouselRoot);
+    }
 
     update();
     setTimeout(() => cardEl.classList.add('visible'), 100);

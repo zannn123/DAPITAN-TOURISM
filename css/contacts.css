@@ -30,6 +30,8 @@
     transform: scale(1.08);
     transition: opacity 1.2s ease, transform 6s ease;
     filter: saturate(0.96) brightness(0.6);
+    will-change: opacity, transform;
+    backface-visibility: hidden;
 }
 
 .contacts-backdrop-slide.active {
@@ -272,6 +274,7 @@
     width: 100%;
     height: 100%;
     transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
 }
 
 .carousel-slide {
@@ -417,6 +420,7 @@
     opacity: 0;
     transform: translateY(24px) scale(0.98);
     transition: opacity 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, transform;
 }
 
 .contact-card.visible {
@@ -727,6 +731,27 @@
     .contact-info-value {
         font-size: 0.82rem;
         line-height: 1.42;
+    }
+}
+
+@media (max-width: 760px), (pointer: coarse) {
+    .contacts-backdrop-slide {
+        inset: -2%;
+        transform: scale(1.04);
+        transition: opacity 0.8s ease, transform 2.8s ease;
+        filter: brightness(0.58);
+    }
+
+    .contacts-backdrop-slide.active {
+        transform: scale(1.01);
+    }
+
+    .contacts-backdrop-overlay {
+        background:
+            radial-gradient(circle at top left, rgba(255, 236, 194, 0.12), transparent 24%),
+            linear-gradient(180deg, rgba(4, 9, 6, 0.44) 0%, rgba(4, 9, 6, 0.64) 26%, rgba(4, 9, 6, 0.82) 62%, rgba(4, 9, 6, 0.92) 100%);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
 }
 

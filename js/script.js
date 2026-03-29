@@ -1,20 +1,3 @@
-// Smooth animation state
-let targetX = 0;
-let targetY = 0;
-let currentX = 0;
-let currentY = 0;
-let targetScroll = window.scrollY;
-let currentScroll = window.scrollY;
-
-// Parallax layers
-const layers = [
-    { element: document.getElementById('back'), mouseSpeed: -0.2, scrollSpeed: 0.4 },
-    { element: document.getElementById('text'), mouseSpeed: 0.5, scrollSpeed: -0.2 },
-    { element: document.getElementById('front'), mouseSpeed: 1.2, scrollSpeed: 0 },
-    { element: document.getElementById('text-hollow'), mouseSpeed: 0.5, scrollSpeed: -0.2 }
-];
-const hasParallaxLayers = layers.some(layer => layer.element);
-
 // Navigation and overlays
 const navHome = document.getElementById('navHome');
 const navExplore = document.getElementById('navExplore');
@@ -31,6 +14,7 @@ const exploreDescription = document.getElementById('exploreFaceDescription');
 const exploreAction = document.getElementById('exploreAction');
 let weatherInitialized = false;
 let phoneToastTimeout = null;
+let exploreResizeFrame = 0;
 
 const exploreItems = [
     {
@@ -80,42 +64,6 @@ const exploreItems = [
 let exploreScene = null;
 let activeExploreItem = null;
 let exploreIsMoving = true;
-
-if (hasParallaxLayers) {
-    document.addEventListener('mousemove', event => {
-        targetX = (window.innerWidth / 2 - event.pageX) / 100;
-        targetY = (window.innerHeight / 2 - event.pageY) / 100;
-    });
-
-    window.addEventListener('scroll', () => {
-        targetScroll = window.scrollY;
-    });
-}
-
-function renderFrame() {
-    currentX += (targetX - currentX) * 0.04;
-    currentY += (targetY - currentY) * 0.04;
-    currentScroll += (targetScroll - currentScroll) * 0.06;
-
-    layers.forEach(layer => {
-        if (!layer.element) {
-            return;
-        }
-
-        const moveX = currentX * layer.mouseSpeed;
-        const moveY = (currentY * layer.mouseSpeed) + (currentScroll * layer.scrollSpeed);
-
-        if (layer.element.id === 'text' || layer.element.id === 'text-hollow') {
-            const opacity = Math.max(1 - (currentScroll / 500), 0);
-            layer.element.style.opacity = opacity;
-            layer.element.style.transform = `translate3d(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px), 0)`;
-        } else {
-            layer.element.style.transform = `translate3d(${moveX}px, ${moveY}px, 0) scale(1.02)`;
-        }
-    });
-
-    requestAnimationFrame(renderFrame);
-}
 
 function resetNavbarArtifact() {
     if (topBarContainer) {
@@ -442,10 +390,6 @@ window.addEventListener('keydown', event => {
     }
 });
 
-if (hasParallaxLayers) {
-    requestAnimationFrame(renderFrame);
-}
-
 function initMasonryWhenVisible(items) {
     const masonrySection = document.getElementById('masonryGallery');
     if (!window.initDapitanMasonry || !masonrySection) {
@@ -503,9 +447,18 @@ syncInitialViewFromRoute();
 
 // Re-fit title font whenever the viewport is resized
 window.addEventListener('resize', () => {
-    if (exploreView && exploreView.classList && exploreView.classList.contains('active')) {
-        fitTitleFontSize(exploreTitle);
+    if (!exploreView || !exploreView.classList || !exploreView.classList.contains('active')) {
+        return;
     }
+
+    if (exploreResizeFrame) {
+        cancelAnimationFrame(exploreResizeFrame);
+    }
+
+    exploreResizeFrame = requestAnimationFrame(() => {
+        fitTitleFontSize(exploreTitle);
+        exploreResizeFrame = 0;
+    });
 });
 
 // Initialize Masonry Gallery on DOM ready
@@ -558,7 +511,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initMasonryWhenVisible(masonryData);
 
     // Weather Initialization - ensure it runs even if DOMContentLoaded already fired
-    console.log("Initializing Dapitan Weather...");
     initDapitanWeather();
 });
 
@@ -591,8 +543,6 @@ async function initDapitanWeather() {
         const response = await fetch(url);
         const data = await response.json();
         const { temperature, weathercode } = data.current_weather;
-        console.log(`Weather data fetched: ${temperature}°C (Code: ${weathercode})`);
-
         tempEl.textContent = `${Math.round(temperature)}°`;
         iconEl.innerHTML = getWeatherSVG(weathercode);
     } catch (error) {

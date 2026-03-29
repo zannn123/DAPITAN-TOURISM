@@ -442,7 +442,7 @@ body.explore-open .top-bar-container {
     object-position: center bottom;
     pointer-events: none;
     will-change: transform;
-    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backface-visibility: hidden;
 }
 
 .background {
@@ -460,10 +460,18 @@ body.explore-open .top-bar-container {
     left: 50%;
     transform: translate(-50%, -50%);
     width: min(94vw, 1300px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     pointer-events: none;
     will-change: transform;
-    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backface-visibility: hidden;
+}
+
+.title-group {
+    gap: clamp(6px, 1vw, 12px);
 }
 
 .title-group {
@@ -475,12 +483,16 @@ body.explore-open .top-bar-container {
 }
 
 .subheading {
+    display: block;
+    max-width: 22ch;
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;
     font-size: clamp(0.78rem, 1.2vw, 1.3rem);
     font-weight: 400;
     letter-spacing: clamp(0.16em, 0.28vw, 0.26em);
     margin-bottom: 0.15em;
+    line-height: 1.35;
+    text-wrap: balance;
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -937,13 +949,25 @@ body.explore-open .top-bar-container {
 
     .title-group,
     .title-group-hollow {
-        top: 54%;
+        top: 52%;
         width: calc(100vw - 24px);
+    }
+
+    .title-group {
+        gap: 8px;
+    }
+
+    .subheading {
+        margin-bottom: 0;
+        max-width: 18ch;
+        font-size: clamp(0.66rem, 2vw, 0.82rem);
+        letter-spacing: 0.15em;
     }
 
     .text-main,
     .text-hollow-main {
         font-size: clamp(3.1rem, 15vw, 7rem);
+        line-height: 0.86;
         letter-spacing: -0.05em;
     }
 
@@ -1059,18 +1083,26 @@ body.explore-open .top-bar-container {
 
     .title-group,
     .title-group-hollow {
-        top: 55%;
+        top: 49%;
         width: calc(100vw - 16px);
     }
 
+    .title-group {
+        gap: 10px;
+    }
+
     .subheading {
-        font-size: 0.72rem;
-        letter-spacing: 0.16em;
+        max-width: min(74vw, 15ch);
+        margin-bottom: 0;
+        font-size: 0.62rem;
+        line-height: 1.32;
+        letter-spacing: 0.14em;
     }
 
     .text-main,
     .text-hollow-main {
         font-size: clamp(2.5rem, 17vw, 4.8rem);
+        line-height: 0.82;
     }
 
     .home-content {
