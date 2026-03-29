@@ -35,17 +35,16 @@
         }
 
         const { hero: heroElement, kicker: kickerElement, heroWordmark: wordmarkElement } = measureTargets;
-        heroElement.style.setProperty('--hero-kicker-safe-offset', '0px');
 
         const viewportWidth = window.visualViewport?.width || window.innerWidth;
         const desiredGap = viewportWidth <= 520 ? 6 : viewportWidth <= 820 ? 8 : 10;
+        const heroRect = heroElement.getBoundingClientRect();
         const wordmarkRect = wordmarkElement.getBoundingClientRect();
         const kickerRect = kickerElement.getBoundingClientRect();
-        const overlap = kickerRect.bottom - (wordmarkRect.top - desiredGap);
+        const targetBottom = wordmarkRect.top - desiredGap;
+        const targetCenter = (targetBottom - heroRect.top) - (kickerRect.height / 2);
 
-        if (overlap > 0) {
-            heroElement.style.setProperty('--hero-kicker-safe-offset', `${Math.ceil(overlap)}px`);
-        }
+        kickerElement.style.top = `${Math.max(targetCenter, 16)}px`;
     };
 
     if (prefersReducedMotion) {
