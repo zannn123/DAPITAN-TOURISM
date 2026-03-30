@@ -442,6 +442,7 @@ body.explore-open .top-bar-container {
     width: 100%;
     min-height: 100svh;
     height: 100svh;
+    --hero-kicker-gap: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -483,9 +484,9 @@ body.explore-open .top-bar-container {
 .hero-kicker {
     position: absolute;
     left: 50%;
-    bottom: calc(100% + var(--hero-kicker-gap, 10px));
-    transform: translateX(-50%);
-    z-index: 6;
+    top: calc(50% - 96px);
+    transform: translate(-50%, -50%);
+    z-index: 5;
     width: auto;
     max-width: calc(100vw - 56px);
     text-align: center;
@@ -503,7 +504,6 @@ body.explore-open .top-bar-container {
 .title-group {
     z-index: 2;
     overflow: visible;
-    --hero-kicker-gap: 10px;
 }
 
 .title-group-hollow {
@@ -1011,7 +1011,7 @@ body.explore-open .top-bar-container {
         max-width: calc(100vw - 36px);
     }
 
-    .title-group {
+    .hero {
         --hero-kicker-gap: 8px;
     }
 
@@ -1147,7 +1147,7 @@ body.explore-open .top-bar-container {
         max-width: calc(100vw - 28px);
     }
 
-    .title-group {
+    .hero {
         --hero-kicker-gap: 6px;
     }
 

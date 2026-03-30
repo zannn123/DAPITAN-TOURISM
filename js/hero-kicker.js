@@ -1,6 +1,54 @@
 (() => {
     const animatedNodes = Array.from(document.querySelectorAll('[data-animated-gradient]'));
+    const hero = document.querySelector('.hero');
+    const heroTitle = document.getElementById('text');
+    const heroTitleMain = heroTitle?.querySelector('.text-main');
+    const heroKicker = document.getElementById('text-kicker');
+
+    let heroKickerFrame = 0;
+
+    const readKickerGap = () => {
+        if (!hero) {
+            return 10;
+        }
+
+        const gap = Number.parseFloat(getComputedStyle(hero).getPropertyValue('--hero-kicker-gap'));
+        return Number.isFinite(gap) ? gap : 10;
+    };
+
+    const syncHeroKickerPosition = () => {
+        heroKickerFrame = 0;
+
+        if (!hero || !heroTitle || !heroTitleMain || !heroKicker) {
+            return;
+        }
+
+        const heroRect = hero.getBoundingClientRect();
+        const titleRect = heroTitleMain.getBoundingClientRect();
+        const kickerRect = heroKicker.getBoundingClientRect();
+        if (!heroRect.width || !titleRect.width || !kickerRect.height) {
+            return;
+        }
+
+        const gap = readKickerGap();
+        const targetLeft = (titleRect.left - heroRect.left) + (titleRect.width / 2);
+        const targetTop = (titleRect.top - heroRect.top) - gap - (kickerRect.height / 2);
+        const safeTop = Math.max(targetTop, 18 + (kickerRect.height / 2));
+
+        heroKicker.style.left = `${targetLeft.toFixed(2)}px`;
+        heroKicker.style.top = `${safeTop.toFixed(2)}px`;
+    };
+
+    const requestHeroKickerSync = () => {
+        if (!heroKicker || heroKickerFrame) {
+            return;
+        }
+
+        heroKickerFrame = requestAnimationFrame(syncHeroKickerPosition);
+    };
+
     if (!animatedNodes.length) {
+        requestHeroKickerSync();
         return;
     }
 
@@ -120,5 +168,35 @@
     });
 
     items.forEach(item => updateGradient(item, 0));
+    requestHeroKickerSync();
+
+    if (hero && heroTitle && heroTitleMain && heroKicker) {
+        window.addEventListener('load', requestHeroKickerSync, { once: true });
+        window.addEventListener('resize', requestHeroKickerSync, { passive: true });
+        window.addEventListener('orientationchange', requestHeroKickerSync, { passive: true });
+        window.addEventListener('pageshow', requestHeroKickerSync);
+
+        heroTitle.addEventListener('animationend', requestHeroKickerSync);
+        heroKicker.addEventListener('animationend', requestHeroKickerSync);
+
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', requestHeroKickerSync, { passive: true });
+        }
+
+        if ('ResizeObserver' in window) {
+            const resizeObserver = new ResizeObserver(() => requestHeroKickerSync());
+            resizeObserver.observe(hero);
+            resizeObserver.observe(heroTitle);
+            resizeObserver.observe(heroTitleMain);
+            resizeObserver.observe(heroKicker);
+        }
+
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(() => requestHeroKickerSync()).catch(() => {});
+        }
+
+        window.setTimeout(requestHeroKickerSync, 900);
+    }
+
     start();
 })();
