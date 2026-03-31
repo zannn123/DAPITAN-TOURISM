@@ -521,8 +521,8 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
 /**
  * ─── WEATHER INTEGRATION ───
- * Fetches real-time weather for Dapitan City (8.65, 123.42)
- * using Open-Meteo API.
+ * Fetches current weather for the Dapitan City geocoded center
+ * using Open-Meteo's current conditions endpoint.
  */
 async function initDapitanWeather() {
     if (weatherInitialized) {
@@ -531,24 +531,44 @@ async function initDapitanWeather() {
 
     const tempEl = document.getElementById('weatherTemp');
     const iconEl = document.getElementById('weatherIcon');
+    const navWeather = document.getElementById('navWeather');
     if (!tempEl || !iconEl) return;
 
     weatherInitialized = true;
 
-    const lat = 8.65;
-    const lon = 123.42;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+    const lat = 8.654829731513157;
+    const lon = 123.42330209384745;
+    const timezone = 'Asia/Manila';
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=${encodeURIComponent(timezone)}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error(`Weather request failed with status ${response.status}`);
+        }
+
         const data = await response.json();
-        const { temperature, weathercode } = data.current_weather;
-        tempEl.textContent = `${Math.round(temperature)}°`;
-        iconEl.innerHTML = getWeatherSVG(weathercode);
+
+        if (!data?.current || typeof data.current.temperature_2m !== 'number') {
+            throw new Error('Weather payload missing current temperature');
+        }
+
+        const { temperature_2m, weather_code, time } = data.current;
+        tempEl.textContent = `${Math.floor(temperature_2m)}°`;
+        iconEl.innerHTML = getWeatherSVG(weather_code);
+
+        if (navWeather && time) {
+            navWeather.title = `Dapitan weather updated ${time.replace('T', ' ')} (${timezone})`;
+        }
     } catch (error) {
         console.error('Weather fetch failed:', error);
-        tempEl.textContent = '29°'; // Fallback for Dapitan average
-        iconEl.innerHTML = getWeatherSVG(1); // Partial cloud fallback
+        weatherInitialized = false;
+        tempEl.textContent = '--°';
+        iconEl.innerHTML = getWeatherSVG(1);
+
+        if (navWeather) {
+            navWeather.removeAttribute('title');
+        }
     }
 }
 
