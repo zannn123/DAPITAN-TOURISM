@@ -32,6 +32,11 @@
     <link rel="stylesheet" href="css/navbar.css?v=20260330a">
     <link rel="stylesheet" href="css/about.css">
     <link rel="icon" type="image/png" href="assets/favicon-64.png?v=20260330b">
+    <!-- Vercel Speed Insights -->
+    <script type="module">
+        import { injectSpeedInsights } from 'https://cdn.jsdelivr.net/npm/@vercel/speed-insights@2.0.0/dist/index.mjs';
+        injectSpeedInsights({ route: '/about' });
+    </script>
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
